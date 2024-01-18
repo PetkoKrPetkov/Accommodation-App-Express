@@ -1,7 +1,10 @@
-<section>
+<section id="catalog-section">
   {{#with room}}
-    <h1>{{name}} - Details</h1>
-    <main>
+    <h1 class="item">{{name}} - Details</h1>
+    <main class="layout right large">
+      <div class="col">
+        <img src='{{imgURL}}' alt='room picture' class="img-large"/>
+      </div>
       <p>{{description}}</p>
       <p>Price per night for 2 persons with HP: ${{price}}</p>
     </main>
