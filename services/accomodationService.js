@@ -34,6 +34,13 @@ async function create(roomData) {
         price: Number(roomData.price),
         imgURL: roomData.imgURL
     }
+    
+
+    const missingValues = Object.entries(room).filter( ([key, value]) => !value)
+    if(missingValues.length > 0 ) {
+      throw new Error(missingValues.map(m => `${m[0]} is required!`).join('\n'))
+    }
+
     data.push(room);
     await persist();
     

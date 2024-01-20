@@ -4,6 +4,13 @@
 
   <main class='item padded align-center'>
     <form class='layout left large' action='/create' method='post'>
+      {{#if error}}
+        <div class='error-box'>
+          {{#each error}}
+            <p>{{this}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
 
       <div class='col aligned'>
         <label><span>Name</span><input type='text' name='name' /></label>
