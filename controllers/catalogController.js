@@ -3,30 +3,35 @@ const { getAll, getByID } = require('../services/accomodationService');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-
   const searchedValue = req.query.search || '';
-  const rooms = getAll(searchedValue);
+  const city = req.query.city || '';
+  const fromPrice = Number(req.query.fromPrice) || 1;
+  const toPrice = Number(req.query.toPrice) || 1000;
+  const rooms = getAll(searchedValue, city, fromPrice, toPrice);
 
   res.render('catalog', {
     title: 'All Accomodation',
     rooms,
-    searchedValue
+    searchedValue,
+    city,
+    fromPrice,
+    toPrice,
   });
 });
 
 router.get('/:id', (req, res) => {
   const roomId = req.params.id;
-  const room = getByID(roomId)
+  const room = getByID(roomId);
 
-  if(room) {
+  if (room) {
     res.render('details', {
       title: 'Accomodation Details',
-      room
+      room,
     });
   } else {
     res.render('roomNotFound', {
       title: 'Accomodation Details',
-      roomId
+      roomId,
     });
   }
 });
