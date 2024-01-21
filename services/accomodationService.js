@@ -16,8 +16,8 @@ async function persist() {
   });
 }
 
-function getAll() {
-  return data;
+function getAll(searchedValue) {
+  return data.filter(room => room.name.toLowerCase().includes(searchedValue.toLowerCase()));
 }
 
 function getByID(id) {

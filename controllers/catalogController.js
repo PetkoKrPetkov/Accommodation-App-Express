@@ -3,11 +3,14 @@ const { getAll, getByID } = require('../services/accomodationService');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  const rooms = getAll();
+
+  const searchedValue = req.query.search || '';
+  const rooms = getAll(searchedValue);
 
   res.render('catalog', {
     title: 'All Accomodation',
-    rooms
+    rooms,
+    searchedValue
   });
 });
 

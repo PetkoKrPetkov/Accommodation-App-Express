@@ -1,12 +1,29 @@
 <section id="catalog-section" class="spaced">
 
   <h1 class="item">All Accomodation</h1>
-  <main class="item pad-large align-center">
-    <ul class="catalog cards">
+
+    <main class="item pad-large align-center">
+      <div>
+        <form class="layout left large" method="get">
+          <input name="search" value="{{searchedValue}}">
+          <input class="action" type="submit" value="Search">
+        </form>
+      </div>
+    </main>
+
+  {{#if rooms}}
+      <ul class="catalog cards">
         {{#each rooms}}
             {{> roomCard}}
         {{/each}}
-    </ul>
-  </main>
+      </ul>
+  {{else}}
+    <main class="item pad-large align-center">
+      <p>Nothing listed yet. Be the first!</p>
+      <div>
+        <a class="action" href="/create">Host Accomodation</a>
+      </div>
+    </main>
+  {{/if}}
 
 </section>
