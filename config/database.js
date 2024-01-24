@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb://localhost:27017/accomodationApp';
+const connectionString = process.env.DATABASE_CONNECTION_STRING || 'mongodb://localhost:27017/accomodationApp';
 
 module.exports = async (app) => {
   try {
