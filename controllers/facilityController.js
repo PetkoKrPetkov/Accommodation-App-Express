@@ -1,4 +1,5 @@
-const { createFacility } = require('../services/facilityService');
+const { createFacility, getAllFacilities, addFacilities } = require('../services/facilityService');
+const { getByID } = require('../services/roomService');
 
 const facilityController = require('express').Router();
 
@@ -20,6 +21,30 @@ facilityController.post('/create', async (req, res) => {
       error: err.message,
     });
   }
+});
+
+facilityController.get('/:roomId/decorateRoom', async (req, res) => {
+    const roomId = req.params.roomId;
+    const room  = await getByID(roomId);
+    const facilities = await getAllFacilities();
+    facilities.forEach(f => {
+        if((room.facilities || []).some(id => id.toString() == f._id.toString())) {
+            f.checked = true;
+        }
+    })
+
+    res.render('decorate', {
+        title: 'Add Facility',
+        room,
+        facilities
+    });
+});
+
+facilityController.post('/:roomId/decorateRoom', async (req, res) => {
+    const roomId = req.params.roomId
+    await addFacilities(roomId, Object.keys(req.body));
+
+    res.redirect('/facility/' + roomId + '/decorateRoom')
 });
 
 module.exports = facilityController;
